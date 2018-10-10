@@ -1,13 +1,23 @@
 import React from 'react';
 import { Table, Button } from 'semantic-ui-react';
+import { roundToDecimals } from '../utils';
 
-export default children => {
+export default props => {
   const { Row, Cell } = Table;
-  const { hash, time, inputs, outputs, confirmations } = children.tx;
-  console.log('outputs    :   ', outputs);
-
+  const {
+    hash,
+    received,
+    confirmed,
+    inputs,
+    outputs,
+    block_height,
+    fees
+  } = props.tx;
   const balance = outputs.reduce((acc, current) => {
-    if (current.addresses[0] === children.myAddr) {
+    if (
+      current.addresses[0] !== null &&
+      current.addresses[0] === props.myAddr
+    ) {
       return acc + current.value;
     }
     return acc;
@@ -26,8 +36,14 @@ export default children => {
       </Cell>
       <Cell>{from}</Cell>
       <Cell>{to.join(', \r\n')}</Cell>
-      <Cell>{balance * 1 * 1e-8}</Cell>
-      <Cell>{confirmations}</Cell>
+      <Cell>{roundToDecimals(8, balance * 1 * 1e-8)}</Cell>
+      <Cell>{roundToDecimals(8, fees * 1 * 1e-8)}</Cell>
+      <Cell>
+        {block_height === -1
+          ? 'Unconfirmed'
+          : props.currentBlock - block_height + 1}
+      </Cell>
+      <Cell>{confirmed ? confirmed : received}</Cell>
     </Row>
   );
 };
