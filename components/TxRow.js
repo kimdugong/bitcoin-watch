@@ -30,7 +30,7 @@ export default props => {
   return (
     <Row>
       <Cell>
-        <a href={`https://testnet.blockchain.info/tx/${hash}`}>
+        <a href={`https://testnet.blockchain.info/tx/${hash}`} target="_blank">
           {hash.substr(0, 8)}
         </a>
       </Cell>

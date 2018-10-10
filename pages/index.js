@@ -126,7 +126,12 @@ class BitcoinWatch extends Component {
           />
         </Head>
         <h1>Dugong's Bitcoin Watch</h1>
-        <div>현재 블록 : {this.state.currentBlock}</div>
+        <div>
+          현재 블록 : {this.state.currentBlock}{' '}
+          <a href={'https://testnet.blockchain.info/'} target="_blank">
+            (Testnet3)
+          </a>
+        </div>
         <Table>
           <Header>
             <Row>
